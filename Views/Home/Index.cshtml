@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function() {
+            var connection = $.connection('/echo');
+            connection.start();
+
+            connection.start().done(function() {
+                alert("Connection started!");
+            });
+
+            connection.received(function(data) {
+                $('#mess').append('<span>' + data.Id + '</span><br />');
+            });
+            
+            $('#hitMe').click(function () {
+                connection.send('poop');
+                $('#mess').innerHTML('poop sent');
+            });
+
+       });
+    </script>
+}
+
+<div id="mess">...</div>
+<div style="font-size: 100px; cursor: pointer;" id="hitMe">HIT ME!</div>
